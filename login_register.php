@@ -22,15 +22,15 @@ if (isset($_POST['register'])) { //check if register button is clicked
 }
 
 if(isset($_POST['login'])) { //check if login button is clicked
-    $name = $_POST['name']; //temporary stores the values
+    $email = $_POST['email']; //temporary stores the values
     $password = $_POST['password'];
 
     $result = $conn->query("SELECT * FROM users WHERE email = '$email'"); //query the user with the given email
     if($result->num_rows > 0) { //checker to see if there is match
         $user = $result->fetch_assoc(); //retrive users data using fetch_assoc
         if(password_verify($password, $user['password'])) { //password_verify(entered password, password in database)
-            $SESSION['name'] = $user['name'];
-            $SESSION['email'] = $user['email'];
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['email'] = $user['email'];
 
             if ($user['role'] == 'admin') {
                 header("Location: admin_page.php");
